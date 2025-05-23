@@ -6,15 +6,28 @@ import {
   FaLinkedin,
   FaEnvelope,
   FaWhatsapp,
+  FaMapMarkerAlt,
+  FaPhone,
 } from "react-icons/fa";
+import styles from "../styles/Footer.module.css";
+
+
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Animaciones
+  // Animaciones mejoradas
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }),
   };
 
   const pulseAnimation = {
@@ -22,159 +35,191 @@ function Footer() {
     animate: {
       scale: [1, 1.1, 1],
       transition: {
-        duration: 1.5,
+        duration: 2,
         repeat: Infinity,
         ease: "easeInOut",
       },
     },
+    hover: {
+      scale: 1.2,
+      rotate: 10,
+      transition: { duration: 0.3 }
+    }
   };
 
   const socialLinks = [
     {
-      icon: <FaInstagram size={20} />,
+      icon: <FaInstagram size={44} />,
       url: "https://instagram.com/pixeldigital",
+      color: "#E1306C"
     },
     {
-      icon: <FaFacebook size={20} />,
+      icon: <FaFacebook size={44} />,
       url: "https://facebook.com/pixeldigital",
+      color: "#3B5998"
     },
     {
-      icon: <FaLinkedin size={20} />,
+      icon: <FaLinkedin size={44} />,
       url: "https://linkedin.com/company/pixeldigital",
+      color: "#0077B5"
     },
-    { icon: <FaEnvelope size={20} />, url: "mailto:contacto@pixeldigital.com" },
+    { 
+      icon: <FaEnvelope size={44} />, 
+      url: "mailto:contacto@pixeldigital.com",
+      color: "#D44638"
+    },
   ];
 
   const footerLinks = [
     { title: "Inicio", url: "#inicio" },
     { title: "Servicios", url: "#servicios" },
     { title: "Portafolio", url: "#portafolio" },
-    { title: "Sobre Nosotros", url: "#nosotros" },
+    { title: "Nosotros", url: "#nosotros" },
+    { title: "Blog", url: "#blog" },
     { title: "Contacto", url: "#contacto" },
   ];
 
   return (
     <>
-      {/* Botón de WhatsApp flotante */}
+      {/* Botón de WhatsApp flotante mejorado */}
       <motion.div
+        className={styles.whatsappButton}
         initial="initial"
         animate="animate"
+        whileHover="hover"
         variants={pulseAnimation}
-        style={{
-          position: "fixed",
-          bottom: "30px",
-          right: "30px",
-          zIndex: 1000,
-        }}
-        whileHover={{ scale: 1.4 }}
-        whileTap={{ scale: 0.9 }}
       >
         <a
           href="https://wa.me/50493877292"
           target="_blank"
           rel="noopener noreferrer"
-          className="d-flex align-items-center justify-content-center"
-          style={{
-            width: "60px",
-            height: "60px",
-            borderRadius: "50%",
-            background: "#25D366",
-            color: "white",
-            fontSize: "30px",
-            boxShadow: "0 4px 20px rgba(37, 211, 102, 0.5)",
-            textDecoration: "none",
-          }}
+          aria-label="Contactar por WhatsApp"
         >
           <FaWhatsapp />
+          <motion.span 
+            className={styles.tooltip}
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 1 }}
+          >
+            ¡Hablemos!
+          </motion.span>
         </a>
       </motion.div>
 
       {/* Footer principal */}
       <motion.footer
-        className="bg-dark text-light py-5"
+        className={styles.footer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeIn}
+        viewport={{ once: true, margin: "-50px" }}
       >
         <Container>
-          <Row className="g-4">
+          <Row className="g-4 g-lg-5">
+            {/* Columna 1: Logo y descripción */}
             <Col lg={4} className="text-lg-start">
-              <h4 className="fw-bold mb-4">Pixel Digital</h4>
-              <p className="text-muted">
-                Transformamos tus ideas en realidad digital con soluciones
-                creativas y efectivas.
-              </p>
-              <div className="d-flex gap-3 mt-4 justify-content-lg-start justify-content-center">
-                {socialLinks.map((link, index) => (
-                  <motion.a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-light"
-                    whileHover={{
-                      y: -3,
-                      color: "#6E45E2",
-                      transition: { duration: 0.2 },
-                    }}
-                  >
-                    {link.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </Col>
-
-            <Col lg={4} className="text-center ">
-              <h5 className="fw-bold mb-4">Enlaces Rápidos</h5>
-              <ul className="list-unstyled">
-                {footerLinks.map((link, index) => (
-                  <motion.li
-                    key={index}
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <a
+              <motion.div 
+                className={styles.brandSection}
+                variants={fadeIn}
+                custom={0}
+              >
+                <h4 className={styles.brandName}>Pixel<span>Digital</span></h4>
+                <p className={styles.brandDescription}>
+                  Creamos experiencias digitales memorables que conectan marcas con su audiencia.
+                </p>
+                <div className={styles.socialLinks}>
+                  {socialLinks.map((link, index) => (
+                    <motion.a
+                      key={index}
                       href={link.url}
-                      className="text-muted text-decoration-none d-block py-2"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialIcon}
+                      style={{ '--hover-color': link.color }}
+                      variants={fadeIn}
+                      custom={index + 1}
+                      whileHover={{
+                        y: -5,
+                        scale: 1.1,
+                        transition: { duration: 0.2 },
+                      }}
                     >
-                      {link.title}
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
+                      {link.icon}
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
             </Col>
 
-            <Col lg={4} className="text-lg-end">
-              <h5 className="fw-bold mb-4">Contacto</h5>
-              <address className="text-muted">
-                <p className="mb-2">
-                  <i className="bi bi-geo-alt-fill me-2"></i>
-                  Av. Digital 123, Ciudad Pixel
-                </p>
-                <p className="mb-2">
-                  <i className="bi bi-telephone-fill me-2"></i>
-                  +1 234 567 890
-                </p>
-                <p>
-                  <i className="bi bi-envelope-fill me-2"></i>
-                  contacto@pixeldigital.com
-                </p>
-              </address>
+            {/* Columna 2: Enlaces rápidos */}
+            <Col lg={4} className="text-center text-lg-start">
+              <motion.div variants={fadeIn} custom={1}>
+                <h5 className={styles.sectionTitle}>Explorar</h5>
+                <ul className={styles.quickLinks}>
+                  {footerLinks.map((link, index) => (
+                    <motion.li
+                      key={index}
+                      variants={fadeIn}
+                      custom={index + 2}
+                      whileHover={{
+                        x: 5,
+                        transition: { type: "spring", stiffness: 400 }
+                      }}
+                    >
+                      <a href={link.url} className={styles.navLink}>
+                        {link.title}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+            </Col>
+
+            {/* Columna 3: Contacto */}
+            <Col lg={4} className="text-center text-lg-end">
+              <motion.div variants={fadeIn} custom={2}>
+                <h5 className={styles.sectionTitle}>Contáctanos</h5>
+                <address className={styles.contactInfo}>
+                  <motion.p variants={fadeIn} custom={2.5}>
+                    <FaMapMarkerAlt className={styles.contactIcon} />
+                    <span>Av. Innovación 456, San Pedro Sula</span>
+                  </motion.p>
+                  <motion.p variants={fadeIn} custom={3}>
+                    <FaPhone className={styles.contactIcon} />
+                    <span>+504 9876-5432</span>
+                  </motion.p>
+                  <motion.p variants={fadeIn} custom={3.5}>
+                    <FaEnvelope className={styles.contactIcon} />
+                    <a href="mailto:hola@pixeldigital.hn">hola@pixeldigital.hn</a>
+                  </motion.p>
+                </address>
+              </motion.div>
             </Col>
           </Row>
 
-          <hr className="my-4 bg-secondary" />
+          {/* Separador */}
+          <motion.hr 
+            className={styles.divider}
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          />
 
+          {/* Copyright */}
           <Row>
-            <Col className="text-center text-muted">
-              <p className="mb-0">
-                &copy; {currentYear} Pixel Digital. Todos los derechos
-                reservados.
-              </p>
-              <p className="small mt-2">
-                Diseñado y desarrollado con ❤️ por el equipo Pixel
-              </p>
+            <Col className="text-center">
+              <motion.div
+                className={styles.copyright}
+                variants={fadeIn}
+                custom={4}
+              >
+                <p>
+                  &copy; {currentYear} <strong>Pixel Digital</strong>. Todos los derechos reservados.
+                </p>
+                <p className={styles.credits}>
+                  Hecho con <span className={styles.heart}>❤️</span> en Honduras
+                </p>
+              </motion.div>
             </Col>
           </Row>
         </Container>
