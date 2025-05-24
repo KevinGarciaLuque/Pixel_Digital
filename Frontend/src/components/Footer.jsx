@@ -1,3 +1,4 @@
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import {
@@ -11,12 +12,13 @@ import {
 } from "react-icons/fa";
 import styles from "../styles/Footer.module.css";
 
-
+// ✅ Crear motion.a usando motion.create para evitar deprecation warning
+const MotionAnchor = motion.create("a");
+const MotionListItem = motion.create("li");
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Animaciones mejoradas
   const fadeIn = {
     hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
@@ -25,8 +27,8 @@ function Footer() {
       transition: {
         delay: i * 0.1,
         duration: 0.8,
-        ease: "easeOut"
-      }
+        ease: "easeOut",
+      },
     }),
   };
 
@@ -40,33 +42,28 @@ function Footer() {
         ease: "easeInOut",
       },
     },
-    hover: {
-      scale: 1.2,
-      rotate: 10,
-      transition: { duration: 0.3 }
-    }
   };
 
   const socialLinks = [
     {
       icon: <FaInstagram size={44} />,
       url: "https://instagram.com/pixeldigital",
-      color: "#E1306C"
+      color: "#E1306C",
     },
     {
       icon: <FaFacebook size={44} />,
       url: "https://facebook.com/pixeldigital",
-      color: "#3B5998"
+      color: "#3B5998",
     },
     {
       icon: <FaLinkedin size={44} />,
       url: "https://linkedin.com/company/pixeldigital",
-      color: "#0077B5"
+      color: "#0077B5",
     },
-    { 
-      icon: <FaEnvelope size={44} />, 
+    {
+      icon: <FaEnvelope size={44} />,
       url: "mailto:contacto@pixeldigital.com",
-      color: "#D44638"
+      color: "#D44638",
     },
   ];
 
@@ -81,12 +78,12 @@ function Footer() {
 
   return (
     <>
-      {/* Botón de WhatsApp flotante mejorado */}
+      {/* Botón de WhatsApp flotante */}
       <motion.div
         className={styles.whatsappButton}
         initial="initial"
         animate="animate"
-        whileHover="hover"
+        whileHover={{ scale: 1.2, rotate: 10 }}
         variants={pulseAnimation}
       >
         <a
@@ -96,10 +93,10 @@ function Footer() {
           aria-label="Contactar por WhatsApp"
         >
           <FaWhatsapp />
-          <motion.span 
+          <motion.span
             className={styles.tooltip}
             initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
           >
             ¡Hablemos!
           </motion.span>
@@ -115,26 +112,29 @@ function Footer() {
       >
         <Container>
           <Row className="g-4 g-lg-5">
-            {/* Columna 1: Logo y descripción */}
+            {/* Columna 1: Marca y redes */}
             <Col lg={4} className="text-lg-start">
-              <motion.div 
+              <motion.div
                 className={styles.brandSection}
                 variants={fadeIn}
                 custom={0}
               >
-                <h4 className={styles.brandName}>Pixel<span>Digital</span></h4>
+                <h4 className={styles.brandName}>
+                  Pixel<span>Digital</span>
+                </h4>
                 <p className={styles.brandDescription}>
-                  Creamos experiencias digitales memorables que conectan marcas con su audiencia.
+                  Creamos experiencias digitales memorables que conectan marcas
+                  con su audiencia.
                 </p>
                 <div className={styles.socialLinks}>
                   {socialLinks.map((link, index) => (
-                    <motion.a
+                    <MotionAnchor
                       key={index}
                       href={link.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.socialIcon}
-                      style={{ '--hover-color': link.color }}
+                      style={{ "--hover-color": link.color }}
                       variants={fadeIn}
                       custom={index + 1}
                       whileHover={{
@@ -144,7 +144,7 @@ function Footer() {
                       }}
                     >
                       {link.icon}
-                    </motion.a>
+                    </MotionAnchor>
                   ))}
                 </div>
               </motion.div>
@@ -156,19 +156,19 @@ function Footer() {
                 <h5 className={styles.sectionTitle}>Explorar</h5>
                 <ul className={styles.quickLinks}>
                   {footerLinks.map((link, index) => (
-                    <motion.li
+                    <MotionListItem
                       key={index}
                       variants={fadeIn}
                       custom={index + 2}
                       whileHover={{
                         x: 5,
-                        transition: { type: "spring", stiffness: 400 }
+                        transition: { type: "spring", stiffness: 400 },
                       }}
                     >
                       <a href={link.url} className={styles.navLink}>
                         {link.title}
                       </a>
-                    </motion.li>
+                    </MotionListItem>
                   ))}
                 </ul>
               </motion.div>
@@ -189,15 +189,17 @@ function Footer() {
                   </motion.p>
                   <motion.p variants={fadeIn} custom={3.5}>
                     <FaEnvelope className={styles.contactIcon} />
-                    <a href="mailto:hola@pixeldigital.hn">hola@pixeldigital.hn</a>
+                    <a href="mailto:hola@pixeldigital.hn">
+                      hola@pixeldigital.hn
+                    </a>
                   </motion.p>
                 </address>
               </motion.div>
             </Col>
           </Row>
 
-          {/* Separador */}
-          <motion.hr 
+          {/* Línea divisoria */}
+          <motion.hr
             className={styles.divider}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -205,7 +207,7 @@ function Footer() {
             viewport={{ once: true }}
           />
 
-          {/* Copyright */}
+          {/* Derechos reservados */}
           <Row>
             <Col className="text-center">
               <motion.div
@@ -214,7 +216,8 @@ function Footer() {
                 custom={4}
               >
                 <p>
-                  &copy; {currentYear} <strong>Pixel Digital</strong>. Todos los derechos reservados.
+                  &copy; {currentYear} <strong>Pixel Digital</strong>. Todos los
+                  derechos reservados.
                 </p>
                 <p className={styles.credits}>
                   Hecho con <span className={styles.heart}>❤️</span> en Honduras

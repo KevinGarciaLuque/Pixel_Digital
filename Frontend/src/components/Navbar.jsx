@@ -58,7 +58,7 @@ function Menu() {
           <Navbar expand="lg" expanded={expanded} onToggle={setExpanded}>
             <Navbar.Brand as={Link} to="/" className="navbar-brand">
               <motion.div
-                whileHover={{ scale: 1.30 }}
+                whileHover={{ scale: 1.3 }}
                 whileTap={{ scale: 0.95 }}
                 className="d-flex align-items-center"
               >
@@ -105,13 +105,13 @@ function Menu() {
                       }`}
                     >
                       <motion.span
-                        variants={linkVariants}
-                        whileHover="hover"
-                        whileTap="tap"
+                        whileHover={{ scale: 1.05, color: "#6a11cb" }}
+                        whileTap={{ scale: 0.95 }}
                         className="nav-link-text"
                       >
                         {item.name}
                       </motion.span>
+
                       {location.pathname === item.path && (
                         <motion.div
                           layoutId="nav-underline"
@@ -124,18 +124,14 @@ function Menu() {
                 ))}
 
                 <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="nav-cta"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Button
                     as={Link}
                     to="/contacto"
                     variant="pixel-primary"
                     className="btn-pill"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
                   >
                     Cotizar Ahora
                   </Button>

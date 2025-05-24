@@ -3,20 +3,26 @@ import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaSearchPlus, FaExternalLinkAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import SitioWeb from "./../assets/images/imgPortafolio/sitioWeb.png";
-import DiseñoMarca from "./../assets/images/imgPortafolio/diseñoMarca.png";
 
+// ✔️ Nuevo uso correcto de motion.create
+const MotionLink = motion.create(Link);
+
+// Imágenes importadas correctamente
+import sitioWeb from "../assets/images/imgPortafolio/sitioWeb.png";
+import marca from "../assets/images/imgPortafolio/marca.png";
+
+// Proyectos
 const proyectos = [
   {
     key: "sitio-web",
-    imagen: SitioWeb,
+    imagen: sitioWeb,
     titulo: "Sitio Web",
     categoria: "Desarrollo Web",
     descripcion: "Diseño y desarrollo de e-commerce responsive",
   },
   {
     key: "diseno-marca",
-    imagen: DiseñoMarca,
+    imagen: marca,
     titulo: "Diseño de Marca",
     categoria: "Branding",
     descripcion: "Identidad visual completa para empresa de tecnología",
@@ -63,12 +69,10 @@ const staggerContainer = {
 export default function Portafolio() {
   const navigate = useNavigate();
 
-
-
   return (
     <section id="portafolio" className="py-5 bg-light">
       <Container>
-        {/* Título y subtítulo animados */}
+        {/* Encabezado */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -89,11 +93,10 @@ export default function Portafolio() {
           />
         </motion.div>
 
-        {/* Grid de proyectos */}
+        {/* Tarjetas */}
         <Row className="g-4">
           {proyectos.map((proyecto) => (
             <Col lg={4} md={6} key={proyecto.key}>
-              {/* motion.div para animación de tarjeta */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -113,7 +116,6 @@ export default function Portafolio() {
                   />
                   <div className="portfolio-overlay">
                     <div className="overlay-content d-flex flex-column justify-content-center align-items-center">
-                      {/* Solo motion.a tiene animación, no <Link> */}
                       <motion.a
                         href={proyecto.imagen}
                         target="_blank"
@@ -124,16 +126,14 @@ export default function Portafolio() {
                       >
                         <FaSearchPlus size={24} />
                       </motion.a>
-                      {/* Envolvemos el Link en motion.div para animar el botón */}
-                      <motion.div whileHover={{ scale: 1.05 }}>
-                        <Link
-                          to={`/sitio-web/-${proyecto.key}`}
-                          className="btn btn-sm btn-primary rounded-pill px-3"
-                          style={{ textDecoration: "none" }}
-                        >
-                          Ver Proyecto <FaExternalLinkAlt className="ms-1" />
-                        </Link>
-                      </motion.div>
+                      <MotionLink
+                        to={`/${proyecto.key}`}
+                        whileHover={{ scale: 1.05 }}
+                        className="btn btn-sm btn-primary rounded-pill px-3"
+                        style={{ textDecoration: "none" }}
+                      >
+                        Ver Proyecto <FaExternalLinkAlt className="ms-1" />
+                      </MotionLink>
                     </div>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function Portafolio() {
           ))}
         </Row>
 
-        {/* Botón adicional */}
+        {/* Botón extra */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -163,7 +163,6 @@ export default function Portafolio() {
         </motion.div>
       </Container>
 
-      {/* Estilos CSS inyectados (sin atributo jsx) */}
       <style>{`
         .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(116, 97, 176, 0.4); opacity: 0; transition: all 0.3s ease; }
         .card:hover .portfolio-overlay { opacity: 1; }

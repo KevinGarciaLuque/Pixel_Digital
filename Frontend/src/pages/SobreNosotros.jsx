@@ -1,11 +1,13 @@
+import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
-import "../styles/SobreNosotros.css"; // Asegúrate de tener este archivo CSS
+import "../styles/SobreNosotros.css";
 import SobreNosotros1 from "./../assets/images/sobreNosotros1.png";
 
+// motion span personalizado (para valores)
+const MotionBadge = motion.create("span");
 
 const SobreNosotros = () => {
-  // Animaciones
   const fadeIn = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -53,7 +55,6 @@ const SobreNosotros = () => {
               style={{
                 height: "390px",
                 background: "linear-gradient(135deg, #6E45E2 0%, #88D3CE 100%)",
-                animation: "fadeIn 2s ease-in-out",
               }}
             >
               <img
@@ -62,8 +63,6 @@ const SobreNosotros = () => {
                 style={{
                   maxHeight: "340px",
                   maxWidth: "92%",
-                 
-                  
                   width: "100%",
                   borderRadius: "1rem",
                   boxShadow: "0 12px 40px rgba(110, 69, 226, 0.12)",
@@ -151,7 +150,7 @@ const SobreNosotros = () => {
                     "Excelencia",
                     "Trabajo en equipo",
                   ].map((valor, i) => (
-                    <motion.span
+                    <MotionBadge
                       key={i}
                       className="badge rounded-pill px-3 py-2"
                       style={{
@@ -161,7 +160,7 @@ const SobreNosotros = () => {
                       whileHover={{ scale: 1.05 }}
                     >
                       {valor}
-                    </motion.span>
+                    </MotionBadge>
                   ))}
                 </div>
               </motion.div>

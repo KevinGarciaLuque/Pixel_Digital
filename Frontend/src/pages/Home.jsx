@@ -1,13 +1,15 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
-import Carousel from "../components/Carousel"; // Ajusta según tu estructura
-import Baner1 from '../assets/images/baner1.png'; // Ajusta según tu estructura
+import Carousel from "../components/Carousel";
+import Baner1 from "../assets/images/baner1.png";
 import "../styles/Home.css";
 import "../styles/Carousel.css";
-import { image } from "framer-motion/client";
 import { Link } from "react-router-dom";
 import Servicios from "./Servicios";
+
+// Convertir botón a componente animado
+const MotionButton = motion(Button);
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,8 +17,6 @@ function Home() {
 
   useEffect(() => {
     setIsVisible(true);
-
-    // Animación de fondo intermitente sutil
     const interval = setInterval(() => {
       controls.start({
         backgroundPosition: ["0% 0%", "100% 100%"],
@@ -28,14 +28,9 @@ function Home() {
         },
       });
     }, 100);
-
     return () => clearInterval(interval);
   }, [controls]);
 
-
-
-
-  // Animaciones
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -52,18 +47,7 @@ function Home() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
-      },
-    },
-    hover: {
-      scale: 1.05,
-      transition: { duration: 0.3 },
-    },
-    tap: {
-      scale: 0.95,
+      transition: { type: "spring", stiffness: 100, damping: 10 },
     },
   };
 
@@ -84,59 +68,40 @@ function Home() {
   const pulseVariants = {
     pulse: {
       scale: [1, 1.03, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        repeatType: "loop",
-      },
+      transition: { duration: 2, repeat: Infinity, repeatType: "loop" },
     },
   };
 
-  const rotateVariants = {
-    rotate: {
-      rotate: [0, 360],
-      transition: {
-        duration: 20,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "linear",
-      },
-    },
-  };
   const carouselItems = [
     {
       title: "Diseño Creativo",
-      description:
-        "Soluciones visuales impactantes para tu marca que capturan la esencia de tu negocio.",
-      image: Baner1 // Usando la imagen importada
+      description: "Soluciones visuales impactantes para tu marca.",
+      image: Baner1,
     },
     {
       title: "Marketing Digital",
       description:
-        "Estrategias personalizadas para aumentar tu presencia en línea y llegar a más clientes.",
+        "Estrategias personalizadas para aumentar tu presencia en línea.",
       image:
         "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     },
     {
       title: "Desarrollo Web",
       description:
-        "Sitios web modernos y funcionales diseñados para convertir visitantes en clientes.",
+        "Sitios web modernos y funcionales diseñados para convertir.",
       image:
         "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     },
   ];
 
-
   return (
     <div className="home-page">
-      {/* Carrusel Section */}
       <section className="py-5 pixel-carousel">
         <Container>
           <Carousel items={carouselItems} />
         </Container>
       </section>
 
-      {/* Hero Section */}
       <motion.section className="hero-section pixel-hero" animate={controls}>
         <Container>
           <motion.div
@@ -146,7 +111,10 @@ function Home() {
           >
             <Row className="align-items-center min-vh-100 py-5">
               <Col lg={6} className="text-center text-lg-start mb-5 mb-lg-0">
-                <motion.div variants={itemVariants} whileHover="hover">
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                >
                   <motion.h1
                     className="pixel-logo mb-3"
                     animate="pulse"
@@ -161,8 +129,7 @@ function Home() {
                   variants={itemVariants}
                   whileHover={{ scale: 1.02 }}
                 >
-                  DISEÑAMOS EL FUTURO
-                  <br />
+                  DISEÑAMOS EL FUTURO <br />
                   DE TU MARCA PIXEL A PIXEL
                 </motion.h2>
 
@@ -180,37 +147,33 @@ function Home() {
                   </motion.p>
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="mt-4">
-                  <motion.div
-                    className="d-inline-block me-3"
+                <motion.div
+                  variants={itemVariants}
+                  className="mt-4 d-flex gap-3 flex-wrap"
+                >
+                  <MotionButton
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    variant="pixel-primary"
+                    size="lg"
+                    className="btn-pill"
+                    as={Link}
+                    to="/portafolio"
                   >
-                    <Button
-                      variant="pixel-primary"
-                      size="lg"
-                      className="btn-pill"
-                      as={Link}
-                      to="/portafolio"
-                    >
-                      Conoce más
-                    </Button>
-                  </motion.div>
-                  <motion.div
+                    Conoce más
+                  </MotionButton>
+
+                  <MotionButton
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="d-inline-block"
+                    variant="outline-light"
+                    size="lg"
+                    className="btn-pill"
+                    as={Link}
+                    to="/contacto"
                   >
-                    <Button
-                      variant="outline-light"
-                      size="lg"
-                      className="btn-pill"
-                      as={Link}
-                      to="/contacto"
-                    >
-                      Contacto
-                    </Button>
-                  </motion.div>
+                    Contacto
+                  </MotionButton>
                 </motion.div>
               </Col>
 
@@ -231,7 +194,7 @@ function Home() {
 
       <Servicios />
 
-      {/* CTA Section */}
+      {/* CTA Final */}
       <section className="py-5 pixel-cta">
         <Container>
           <Row className="justify-content-center">
@@ -248,32 +211,29 @@ function Home() {
                     scale: [1, 1.02, 1],
                     transition: { duration: 1 },
                   }}
-                  viewport={{ once: true }}
                 >
                   ¿LISTO PARA LLEVAR TU MARCA AL SIGUIENTE NIVEL?
                 </motion.h2>
+
                 <motion.p
                   className="lead mb-5 pixel-cta-text"
                   whileInView={{
                     opacity: [0.5, 1],
                     transition: { duration: 1.2 },
                   }}
-                  viewport={{ once: true }}
                 >
                   Contáctanos hoy y comienza tu viaje creativo con nosotros.
                 </motion.p>
-                <motion.div
+
+                <MotionButton
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  variant="pixel-primary"
+                  size="lg"
+                  className="btn-pill px-4"
                 >
-                  <Button
-                    variant="pixel-primary"
-                    size="lg"
-                    className="btn-pill px-4"
-                  >
-                    Comenzar Proyecto
-                  </Button>
-                </motion.div>
+                  Comenzar Proyecto
+                </MotionButton>
               </motion.div>
             </Col>
           </Row>
