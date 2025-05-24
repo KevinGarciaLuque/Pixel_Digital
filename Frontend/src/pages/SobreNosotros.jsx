@@ -1,6 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import "../styles/SobreNosotros.css"; // Asegúrate de tener este archivo CSS
+import SobreNosotros1 from "./../assets/images/sobreNosotros1.png";
+
 
 const SobreNosotros = () => {
   // Animaciones
@@ -47,19 +49,27 @@ const SobreNosotros = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-primary rounded-4 shadow-lg"
+              className="bg-primary rounded-4 shadow-lg d-flex align-items-center justify-content-center"
               style={{
-                height: "400px",
+                height: "390px",
                 background: "linear-gradient(135deg, #6E45E2 0%, #88D3CE 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                animation: "fadeIn 2s ease-in-out",
               }}
             >
-              <i
-                className="bi bi-people-fill text-white"
-                style={{ fontSize: "5rem" }}
-              ></i>
+              <img
+                src={SobreNosotros1}
+                alt="Sobre Nosotros - Pixel Digital"
+                style={{
+                  maxHeight: "340px",
+                  maxWidth: "92%",
+                 
+                  
+                  width: "100%",
+                  borderRadius: "1rem",
+                  boxShadow: "0 12px 40px rgba(110, 69, 226, 0.12)",
+                }}
+                className="img-fluid"
+              />
             </motion.div>
           </Col>
 

@@ -1,21 +1,22 @@
-// src/pages/content/portafolio/Portafolio.jsx
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaSearchPlus, FaExternalLinkAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SitioWeb from "./../assets/images/imgPortafolio/sitioWeb.png";
+import DiseñoMarca from "./../assets/images/imgPortafolio/diseñoMarca.png";
 
 const proyectos = [
   {
     key: "sitio-web",
-    imagen: "/assets/trabajo3.jpg",
+    imagen: SitioWeb,
     titulo: "Sitio Web",
     categoria: "Desarrollo Web",
     descripcion: "Diseño y desarrollo de e-commerce responsive",
   },
   {
     key: "diseno-marca",
-    imagen: "/assets/trabajo1.jpg",
+    imagen: DiseñoMarca,
     titulo: "Diseño de Marca",
     categoria: "Branding",
     descripcion: "Identidad visual completa para empresa de tecnología",
@@ -60,6 +61,10 @@ const staggerContainer = {
 };
 
 export default function Portafolio() {
+  const navigate = useNavigate();
+
+
+
   return (
     <section id="portafolio" className="py-5 bg-light">
       <Container>
@@ -97,7 +102,10 @@ export default function Portafolio() {
                 className="card border-0 shadow-sm h-100 overflow-hidden"
                 style={{ borderRadius: "15px" }}
               >
-                <div className="position-relative overflow-hidden" style={{ height: "250px" }}>
+                <div
+                  className="position-relative overflow-hidden"
+                  style={{ height: "250px" }}
+                >
                   <img
                     src={proyecto.imagen}
                     alt={proyecto.titulo}
@@ -119,7 +127,7 @@ export default function Portafolio() {
                       {/* Envolvemos el Link en motion.div para animar el botón */}
                       <motion.div whileHover={{ scale: 1.05 }}>
                         <Link
-                          to={`/portafolio/-${proyecto.key}`}
+                          to={`/sitio-web/-${proyecto.key}`}
                           className="btn btn-sm btn-primary rounded-pill px-3"
                           style={{ textDecoration: "none" }}
                         >
@@ -157,7 +165,7 @@ export default function Portafolio() {
 
       {/* Estilos CSS inyectados (sin atributo jsx) */}
       <style>{`
-        .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(110, 69, 226, 0.8); opacity: 0; transition: all 0.3s ease; }
+        .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(116, 97, 176, 0.4); opacity: 0; transition: all 0.3s ease; }
         .card:hover .portfolio-overlay { opacity: 1; }
         .overlay-content { height: 100%; transform: translateY(20px); transition: all 0.3s ease; }
         .card:hover .overlay-content { transform: translateY(0); }
