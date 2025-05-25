@@ -23,7 +23,7 @@
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
   width: 100%;
-  margin-top: 10px;
+  margin-top:100px;
   
 }
 
@@ -41,6 +41,7 @@
   background: linear-gradient(135deg, var(--pixel-primary) 0%, var(--pixel-secondary) 100%);
   color: var(--pixel-white);
   position: relative;
+ margin-top: 8px;
 }
 
 .pixel-logo {

@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import Carousel from "../components/Carousel";
@@ -7,8 +7,6 @@ import "../styles/Home.css";
 import "../styles/Carousel.css";
 import { Link } from "react-router-dom";
 import Servicios from "./Servicios";
-
-
 
 // Convertir botón a componente animado
 const MotionButton = motion(Button);
@@ -79,6 +77,7 @@ function Home() {
       title: "Diseño Creativo",
       description: "Soluciones visuales impactantes para tu marca.",
       image: Baner1,
+      alt: "Banner de diseño creativo",
     },
     {
       title: "Marketing Digital",
@@ -86,6 +85,7 @@ function Home() {
         "Estrategias personalizadas para aumentar tu presencia en línea.",
       image:
         "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      alt: "Marketing digital",
     },
     {
       title: "Desarrollo Web",
@@ -93,14 +93,19 @@ function Home() {
         "Sitios web modernos y funcionales diseñados para convertir.",
       image:
         "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+      alt: "Desarrollo web",
     },
   ];
 
   return (
     <div className="home-page">
-      <section className="py-5 pixel-carousel">
-        <Container>
-          <Carousel items={carouselItems} />
+      <section className="py-0 pixel-carousel">
+        <Container fluid>
+          <Row className="justify-content-center">
+            <Col xs={12} className="px-0">
+              <Carousel items={carouselItems} />
+            </Col>
+          </Row>
         </Container>
       </section>
 
@@ -164,7 +169,7 @@ function Home() {
                     className="btn-pill"
                     as={Link}
                     to="/portafolio"
-                    state={{ scrollTo: "portafolio" }} // 👈 Aquí se pasa el ID de destino
+                    state={{ scrollTo: "portafolio" }}
                   >
                     Conoce más
                   </MotionButton>
@@ -200,7 +205,6 @@ function Home() {
 
       <Servicios />
 
-      {/* CTA Final */}
       <section className="py-5 pixel-cta">
         <Container>
           <Row className="justify-content-center">
@@ -239,7 +243,7 @@ function Home() {
                   className="btn-pill px-4"
                   as={Link}
                   to="/contacto"
-                  state={{ scrollTo: "contacto" }} // 👈 Aquí se pasa el ID de destino
+                  state={{ scrollTo: "contacto" }}
                 >
                   Comenzar Proyecto
                 </MotionButton>

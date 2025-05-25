@@ -59,22 +59,22 @@ function Footer() {
       name: "WhatsApp",
     },
     {
-      icon: <FaFacebookF size={24} />,
-      url: "https://facebook.com",
-      color: "#1877F2",
-      name: "Facebook",
-    },
-    {
       icon: <FaInstagram size={24} />,
-      url: "https://instagram.com",
+      url: "https://www.instagram.com/pixeldigital.hn?igsh=MXJsYWxocWszMnQ0ZA==",
       color: "#E4405F",
       name: "Instagram",
     },
     {
       icon: <FaTiktok size={24} />,
-      url: "https://tiktok.com",
+      url: "https://www.tiktok.com/@pixel.digital66?_t=ZM-8wefMKoM6zu&_r=1",
       color: "#000000",
       name: "TikTok",
+    },
+    {
+      icon: <FaFacebookF size={24} />,
+      url: "https://www.facebook.com/share/1YzfDvJHin/?mibextid=wwXIfr",
+      color: "#1877F2",
+      name: "Facebook",
     },
   ];
 

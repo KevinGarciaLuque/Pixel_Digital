@@ -1,24 +1,39 @@
-/* Carousel Styles */
+/* Variables CSS para fácil mantenimiento */
+:root {
+  --carousel-height-desktop: 70vh;
+  --carousel-height-mobile: 50vh;
+  --carousel-min-height: 400px;
+  --carousel-border-radius: 24px;
+  --carousel-control-size: 50px;
+  --carousel-control-size-mobile: 40px;
+  --carousel-indicator-size: 12px;
+  --carousel-indicator-active-size: 14px;
+  --carousel-text-padding: 2rem;
+  --carousel-text-padding-mobile: 1rem;
+  --transition-duration: 0.3s;
+  --primary-color: #FFCC00;
+  --text-color-light: #FFFFFF;
+  --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos base del carrusel */
 .pixel-carousel-container {
-  padding: 0;
-  margin-top: 105px;
   position: relative;
   width: 100%;
-  height: 605px;
+  height: var(--carousel-height-desktop);
+  min-height: var(--carousel-min-height);
+  margin: 2rem 0;
   overflow: hidden;
-
-  font-size: 2rem;
-  border-radius: 40px;
-
- 
+  border-radius: var(--carousel-border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 85px;
+  height: 600px;
 }
 
 .carousel-wrapper {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
- 
 }
 
 .carousel-item {
@@ -30,15 +45,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-  z-index: 1;
-  
-}
-
-.carousel-item.active {
-  opacity: 1;
-  z-index: 2;
 }
 
 .carousel-content {
@@ -50,11 +56,11 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-
+  padding: var(--carousel-text-padding);
   box-sizing: border-box;
-  
 }
 
+/* Contenedor de imagen */
 .carousel-image-container {
   position: absolute;
   top: 0;
@@ -62,7 +68,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 40px;
 }
 
 .carousel-image {
@@ -70,166 +75,223 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  will-change: transform; /* Optimización para animaciones */
+}
+
+/* Overlay para mejor legibilidad */
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.3) 0%, 
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+/* Contenido de texto */
+.text-content {
+  position: relative;
+  z-index: 3;
+  max-width: 1200px;
 }
 
 .carousel-title {
-  position: relative;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  margin-bottom: 1rem;
-  color: var(--pixel-yellow);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  z-index: 3;
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  text-shadow: var(--text-shadow);
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .carousel-description {
-  position: relative;
   font-size: clamp(1rem, 2vw, 1.5rem);
   margin-bottom: 2rem;
-  color: white;
-  z-index: 3;
+  color: var(--text-color-light);
+  text-shadow: var(--text-shadow);
   max-width: 800px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  line-height: 1.6;
 }
 
+/* Botón CTA */
+.carousel-cta {
+  background-color: var(--primary-color);
+  color: #000;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-duration) ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Controles de navegación */
 .carousel-control {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: transparent; /* Fondo transparente */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
   border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 2.5rem; /* Tamaño aumentado */
-  outline: none;
-  padding: 0.5rem;
-  z-index: 4;
-  width: auto; /* Ancho automático */
-  height: auto; /* Alto automático */
+  border-radius: 50%;
+  width: var(--carousel-control-size);
+  height: var(--carousel-control-size);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  border: none !important; /* Elimina el borde */
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para mejor contraste */
-  opacity: 0.8; /* Transparencia inicial */
+  cursor: pointer;
+  z-index: 10;
+  transition: all var(--transition-duration) ease;
+  color: var(--text-color-light);
 }
 
 .carousel-control:hover {
-  opacity: 1; /* Opacidad completa al hover */
-  transform: translateY(-50%) scale(1.2); /* Efecto de crecimiento */
-  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7); /* Sombra más pronunciada */
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control svg {
+  width: 24px;
+  height: 24px;
 }
 
 .carousel-control.prev {
-  left: 20px;
+  left: 2rem;
 }
 
 .carousel-control.next {
-  right: 20px;
+  right: 2rem;
 }
 
-/* Flechas personalizadas usando pseudo-elementos */
-.carousel-control::before {
-  content: "";
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  border-top: 3px solid white;
-  border-left: 3px solid white;
-  transition: all 0.3s ease;
-}
-
-.carousel-control.prev::before {
-  transform: rotate(-45deg);
-  margin-right: 5px;
-}
-
-.carousel-control.next::before {
-  transform: rotate(135deg);
-  margin-left: 5px;
-}
-
-/* Efecto al hacer hover en las flechas */
-.carousel-control:hover::before {
-  border-color: var(--pixel-yellow); /* Cambia color al hover */
-  border-width: 4px; /* Grosor aumentado */
-}
-
-.carousel-control.prev {
-  left: 20px;
-}
-
-.carousel-control.next {
-  right: 20px;
-}
-
+/* Indicadores */
 .carousel-indicators {
   position: absolute;
-  bottom: 20px;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
-  z-index: 4;
+  gap: 0.8rem;
+  z-index: 10;
 }
 
 .indicator {
-  width: 12px;
-  height: 12px;
+  width: var(--carousel-indicator-size);
+  height: var(--carousel-indicator-size);
   border-radius: 50%;
-  border: 2px solid white;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
   cursor: pointer;
   padding: 0;
-  transition: all 0.3s ease;
+  transition: all var(--transition-duration) ease;
 }
 
 .indicator.active {
-  background: white;
+  background: var(--primary-color);
+  width: var(--carousel-indicator-active-size);
+  height: var(--carousel-indicator-active-size);
+}
+
+.indicator:hover {
   transform: scale(1.2);
 }
 
 /* Media Queries para responsividad */
-@media (max-width: 768px) {
-  .carousel-title {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+@media (max-width: 992px) {
+  .pixel-carousel-container {
+    height: 60vh;
+   
+ 
   }
   
-  .carousel-description {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-      padding: 0 1rem;
+  .carousel-content {
+    padding: 1.5rem;
+    height: 100%;
+  
   }
   
   .carousel-control {
-      width: 40px;
-      height: 40px;
-      font-size: 1.5rem;
+    width: var(--carousel-control-size-mobile);
+    height: var(--carousel-control-size-mobile);
+  }
+  
+  .carousel-control.prev {
+    left: 1rem;
+  }
+  
+  .carousel-control.next {
+    right: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pixel-carousel-container {
+    height: var(--carousel-height-mobile);
+    border-radius: 12px;
+   
+  }
+  
+  .carousel-content {
+    padding: var(--carousel-text-padding-mobile);
+    justify-content: flex-end;
+    padding-bottom: 2rem; /*Letras dentro del carousell***************************99999999999******/
+  }
+  
+  .carousel-title {
+    margin-bottom: 0.8rem;
+    font-size: 2rem;
+  }
+  
+  .carousel-description {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .carousel-cta {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
   }
   
   .carousel-indicators {
-      bottom: 15px;
+    bottom: 1rem;
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .indicator.active {
+    width: 12px;
+    height: 12px;
   }
 }
 
 @media (max-width: 480px) {
+  .pixel-carousel-container {
+    height: 45vh;
+    min-height: 300px;
+  }
+  
   .carousel-title {
-      font-size: 1.8rem;
+    font-size: 1.8rem;
   }
   
   .carousel-description {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
   
   .carousel-control {
-      width: 35px;
-      height: 35px;
-      font-size: 1.2rem;
-  }
-  
-  .indicator {
-      width: 10px;
-      height: 10px;
+    display: none; /* Ocultar controles en móviles muy pequeños */
   }
 }

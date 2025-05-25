@@ -156,7 +156,7 @@
   @media (max-width: 992px) {
     .pixel-navbar {
       backdrop-filter: none;
-      background-color: var(--pixel-white);
+      background-color: var(--pixel-yellow);
     }
     
     .navbar-collapse {
