@@ -8,6 +8,8 @@ import {
 } from "framer-motion";
 import { useState, useEffect } from "react";
 import "../styles/Menu.css";
+import Logo from "../assets/images/logo.png"; // ✅ Importa el logo
+
 function Menu() {
   const [expanded, setExpanded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -15,7 +17,6 @@ function Menu() {
   const { scrollY } = useScroll();
   const location = useLocation();
 
-  // Efecto de hide/show al hacer scroll
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
     if (latest > previous && latest > 100) {
@@ -26,12 +27,10 @@ function Menu() {
     setScrolled(latest > 50);
   });
 
-  // Cerrar navbar al cambiar de ruta
   useEffect(() => {
     setExpanded(false);
   }, [location]);
 
-  // Variantes de animación
   const navVariants = {
     visible: { y: 0, opacity: 1 },
     hidden: { y: -100, opacity: 0 },
@@ -39,10 +38,10 @@ function Menu() {
 
   const linkVariants = {
     hover: {
-      scale: 1.05,
+      scale: 1.20,
       color: "#6a11cb",
     },
-    tap: { scale: 0.95 },
+    tap: { scale: .95 },
   };
 
   return (
@@ -60,8 +59,19 @@ function Menu() {
               <motion.div
                 whileHover={{ scale: 1.3 }}
                 whileTap={{ scale: 0.95 }}
-                className="d-flex align-items-center"
+                className="d-flex align-items-center gap-2"
               >
+                <img
+                  src={Logo}
+                  alt="Pixel Digital Logo"
+                  className="pixel-navbar-logo"
+                  style={{
+                    maxHeight: "80px",
+                    width: "auto",
+                    filter: "drop-shadow(0 0 4px #001C32)",
+                
+                  }}
+                />
                 <span className="pixel-logo">PIXEL</span>
                 <span className="digital-logo">DIGITAL</span>
               </motion.div>
@@ -105,13 +115,13 @@ function Menu() {
                       }`}
                     >
                       <motion.span
-                        whileHover={{ scale: 1.05, color: "#6a11cb" }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover="hover"
+                        whileTap="tap"
+                        variants={linkVariants}
                         className="nav-link-text"
                       >
                         {item.name}
                       </motion.span>
-
                       {location.pathname === item.path && (
                         <motion.div
                           layoutId="nav-underline"

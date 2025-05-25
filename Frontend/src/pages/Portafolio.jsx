@@ -1,15 +1,19 @@
-import React from "react";
+// Portafolio.jsx
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaSearchPlus, FaExternalLinkAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-
-// ✔️ Nuevo uso correcto de motion.create
+import { Link } from "react-router-dom";
 const MotionLink = motion.create(Link);
 
-// Imágenes importadas correctamente
-import sitioWeb from "../assets/images/imgPortafolio/sitioWeb.png";
-import marca from "../assets/images/imgPortafolio/marca.png";
+import sitioWeb from "../assets/images/imgPortafolio/1.png";
+import marca from "../assets/images/imgPortafolio/2.png";
+import campana from "../assets/images/imgPortafolio/3.png";
+import fotoproducto from "../assets/images/imgPortafolio/4.png";
+import app from "../assets/images/imgPortafolio/5.png";
+import paquetes from "../assets/images/imgPortafolio/6.png";
+
 
 // Proyectos
 const proyectos = [
@@ -29,28 +33,28 @@ const proyectos = [
   },
   {
     key: "campana-digital",
-    imagen: "/assets/trabajo2.jpg",
+    imagen: campana,
     titulo: "Campaña Digital",
     categoria: "Marketing",
     descripcion: "Estrategia de redes sociales para lanzamiento de producto",
   },
   {
     key: "fotografia-producto",
-    imagen: "/assets/trabajo4.jpg",
+    imagen: fotoproducto,
     titulo: "Fotografía Producto",
     categoria: "Fotografía",
     descripcion: "Sesión profesional para catálogo de moda",
   },
   {
     key: "app-movil",
-    imagen: "/assets/trabajo5.jpg",
+    imagen: app,
     titulo: "App Móvil",
     categoria: "UI/UX",
     descripcion: "Diseño de interfaz para aplicación financiera",
   },
   {
     key: "packaging",
-    imagen: "/assets/trabajo6.jpg",
+    imagen: paquetes,
     titulo: "Packaging",
     categoria: "Diseño",
     descripcion: "Diseño de empaque para línea orgánica",
@@ -67,12 +71,18 @@ const staggerContainer = {
 };
 
 export default function Portafolio() {
-  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const scrollToSection = document.getElementById("inicio-portafolio");
+    if (scrollToSection) {
+      scrollToSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
 
   return (
-    <section id="portafolio" className="py-5 bg-light">
+    <section id="inicio-portafolio" className="portafolio2 py-5 bg-light">
       <Container>
-        {/* Encabezado */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -107,7 +117,7 @@ export default function Portafolio() {
               >
                 <div
                   className="position-relative overflow-hidden"
-                  style={{ height: "250px" }}
+                  style={{ height: "350px" }}
                 >
                   <img
                     src={proyecto.imagen}
@@ -148,29 +158,7 @@ export default function Portafolio() {
             </Col>
           ))}
         </Row>
-
-        {/* Botón extra */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-5"
-        >
-          <button className="btn btn-outline-primary px-4 py-2">
-            Ver Más Proyectos
-          </button>
-        </motion.div>
       </Container>
-
-      <style>{`
-        .portfolio-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(116, 97, 176, 0.4); opacity: 0; transition: all 0.3s ease; }
-        .card:hover .portfolio-overlay { opacity: 1; }
-        .overlay-content { height: 100%; transform: translateY(20px); transition: all 0.3s ease; }
-        .card:hover .overlay-content { transform: translateY(0); }
-        .bg-purple-light { background-color: rgba(110, 69, 226, 0.1); }
-        .text-purple { color: #6e45e2; }
-      `}</style>
     </section>
   );
 }

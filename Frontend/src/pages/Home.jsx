@@ -8,6 +8,8 @@ import "../styles/Carousel.css";
 import { Link } from "react-router-dom";
 import Servicios from "./Servicios";
 
+
+
 // Convertir botón a componente animado
 const MotionButton = motion(Button);
 
@@ -119,6 +121,9 @@ function Home() {
                     className="pixel-logo mb-3"
                     animate="pulse"
                     variants={pulseVariants}
+                    style={{
+                      textShadow: "0 0 10px #ffcc00, 0 0 20px #ffcc00",
+                    }}
                   >
                     PIXEL DIGITAL
                   </motion.h1>
@@ -159,6 +164,7 @@ function Home() {
                     className="btn-pill"
                     as={Link}
                     to="/portafolio"
+                    state={{ scrollTo: "portafolio" }} // 👈 Aquí se pasa el ID de destino
                   >
                     Conoce más
                   </MotionButton>
@@ -231,6 +237,9 @@ function Home() {
                   variant="pixel-primary"
                   size="lg"
                   className="btn-pill px-4"
+                  as={Link}
+                  to="/contacto"
+                  state={{ scrollTo: "contacto" }} // 👈 Aquí se pasa el ID de destino
                 >
                   Comenzar Proyecto
                 </MotionButton>

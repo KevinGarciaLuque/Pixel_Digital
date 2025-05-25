@@ -1,22 +1,29 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { motion } from "framer-motion";
+import { Container, Row, Col, Nav } from "react-bootstrap";
 import {
-  FaInstagram,
-  FaFacebook,
-  FaLinkedin,
-  FaEnvelope,
-  FaWhatsapp,
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  AnimatePresence,
+} from "framer-motion";
+import {
   FaMapMarkerAlt,
   FaPhone,
+  FaEnvelope,
+  FaWhatsapp,
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
 } from "react-icons/fa";
+import { Link, useLocation } from "react-router-dom";
 import styles from "../styles/Footer.module.css";
 
-// ✅ Crear motion.a usando motion.create para evitar deprecation warning
 const MotionAnchor = motion.create("a");
 const MotionListItem = motion.create("li");
+const MotionNavLink = motion.create(Nav.Link);
 
 function Footer() {
+  const location = useLocation();
   const currentYear = new Date().getFullYear();
 
   const fadeIn = {
@@ -46,64 +53,61 @@ function Footer() {
 
   const socialLinks = [
     {
-      icon: <FaInstagram size={44} />,
-      url: "https://instagram.com/pixeldigital",
-      color: "#E1306C",
+      icon: <FaWhatsapp size={24} />,
+      url: "https://wa.me/50493877292",
+      color: "#25D366",
+      name: "WhatsApp",
     },
     {
-      icon: <FaFacebook size={44} />,
-      url: "https://facebook.com/pixeldigital",
-      color: "#3B5998",
+      icon: <FaFacebookF size={24} />,
+      url: "https://facebook.com",
+      color: "#1877F2",
+      name: "Facebook",
     },
     {
-      icon: <FaLinkedin size={44} />,
-      url: "https://linkedin.com/company/pixeldigital",
-      color: "#0077B5",
+      icon: <FaInstagram size={24} />,
+      url: "https://instagram.com",
+      color: "#E4405F",
+      name: "Instagram",
     },
     {
-      icon: <FaEnvelope size={44} />,
-      url: "mailto:contacto@pixeldigital.com",
-      color: "#D44638",
+      icon: <FaTiktok size={24} />,
+      url: "https://tiktok.com",
+      color: "#000000",
+      name: "TikTok",
     },
   ];
 
   const footerLinks = [
-    { title: "Inicio", url: "#inicio" },
-    { title: "Servicios", url: "#servicios" },
-    { title: "Portafolio", url: "#portafolio" },
-    { title: "Nosotros", url: "#nosotros" },
-    { title: "Blog", url: "#blog" },
-    { title: "Contacto", url: "#contacto" },
+    { title: "Inicio", path: "/" },
+    { title: "Servicios", path: "/#servicios" },
+    { title: "Portafolio", path: "/portafolio" },
+    { title: "Nosotros", path: "/#nosotros" },
+    { title: "Blog", path: "/#blog" },
+    { title: "Contacto", path: "/#contacto" },
   ];
 
   return (
     <>
-      {/* Botón de WhatsApp flotante */}
+      {/* Botón de WhatsApp fijo */}
       <motion.div
         className={styles.whatsappButton}
         initial="initial"
         animate="animate"
-        whileHover={{ scale: 1.2, rotate: 10 }}
+        whileHover={{ scale: 1.2 }}
         variants={pulseAnimation}
       >
-        <a
-          href="https://wa.me/50493877292"
+        <MotionAnchor
+          href={socialLinks[0].url}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contactar por WhatsApp"
+          style={{ "--hover-color": socialLinks[0].color }}
         >
-          <FaWhatsapp />
-          <motion.span
-            className={styles.tooltip}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-          >
-            ¡Hablemos!
-          </motion.span>
-        </a>
+          {socialLinks[0].icon}
+        </MotionAnchor>
       </motion.div>
 
-      {/* Footer principal */}
       <motion.footer
         className={styles.footer}
         initial="hidden"
@@ -112,76 +116,73 @@ function Footer() {
       >
         <Container>
           <Row className="g-4 g-lg-5">
-            {/* Columna 1: Marca y redes */}
+            {/* Sección de marca */}
             <Col lg={4} className="text-lg-start">
-              <motion.div
-                className={styles.brandSection}
-                variants={fadeIn}
-                custom={0}
-              >
+              <motion.div variants={fadeIn} custom={0}>
                 <h4 className={styles.brandName}>
                   Pixel<span>Digital</span>
                 </h4>
                 <p className={styles.brandDescription}>
-                  Creamos experiencias digitales memorables que conectan marcas
-                  con su audiencia.
+                  Creamos experiencias digitales memorables.
                 </p>
-                <div className={styles.socialLinks}>
-                  {socialLinks.map((link, index) => (
+
+                {/* Redes Sociales */}
+                <motion.div
+                  className={styles.socialIcons}
+                  variants={fadeIn}
+                  custom={1}
+                >
+                  {socialLinks.map((social, index) => (
                     <MotionAnchor
-                      key={index}
-                      href={link.url}
+                      key={social.name}
+                      href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Síguenos en ${social.name}`}
                       className={styles.socialIcon}
-                      style={{ "--hover-color": link.color }}
-                      variants={fadeIn}
-                      custom={index + 1}
+                      style={{ "--hover-color": social.color }}
                       whileHover={{
                         y: -5,
-                        scale: 1.1,
-                        transition: { duration: 0.2 },
+                        scale: 1.2,
+                        transition: { type: "spring", stiffness: 400 },
                       }}
+                      whileTap={{ scale: 0.9 }}
+                      custom={index + 1}
+                      variants={fadeIn}
                     >
-                      {link.icon}
+                      {social.icon}
                     </MotionAnchor>
                   ))}
+                </motion.div>
+              </motion.div>
+            </Col>
+
+            {/* Información de contacto */}
+            <Col lg={4} className="text-center">
+              <motion.div variants={fadeIn} custom={1}>
+                <h5 className={styles.sectionTitle}>Horario</h5>
+                <div className={styles.contactInfo}>
+                  <motion.p variants={fadeIn} custom={1.5}>
+                    <span>Lunes - Viernes: 8:00 AM - 5:00 PM</span>
+                  </motion.p>
+                  <motion.p variants={fadeIn} custom={2}>
+                    <span>Sábado: 9:00 AM - 12:00 PM</span>
+                  </motion.p>
+                  <motion.p variants={fadeIn} custom={2.5}>
+                    <span>Domingo: Cerrado</span>
+                  </motion.p>
                 </div>
               </motion.div>
             </Col>
 
-            {/* Columna 2: Enlaces rápidos */}
-            <Col lg={4} className="text-center text-lg-start">
-              <motion.div variants={fadeIn} custom={1}>
-                <h5 className={styles.sectionTitle}>Explorar</h5>
-                <ul className={styles.quickLinks}>
-                  {footerLinks.map((link, index) => (
-                    <MotionListItem
-                      key={index}
-                      variants={fadeIn}
-                      custom={index + 2}
-                      whileHover={{
-                        x: 5,
-                        transition: { type: "spring", stiffness: 400 },
-                      }}
-                    >
-                      <a href={link.url} className={styles.navLink}>
-                        {link.title}
-                      </a>
-                    </MotionListItem>
-                  ))}
-                </ul>
-              </motion.div>
-            </Col>
-
-            {/* Columna 3: Contacto */}
+            {/* Información de contacto */}
             <Col lg={4} className="text-center text-lg-end">
               <motion.div variants={fadeIn} custom={2}>
                 <h5 className={styles.sectionTitle}>Contáctanos</h5>
                 <address className={styles.contactInfo}>
                   <motion.p variants={fadeIn} custom={2.5}>
                     <FaMapMarkerAlt className={styles.contactIcon} />
-                    <span>Av. Innovación 456, San Pedro Sula</span>
+                    <span>Tegucigalpa, Honduras</span>
                   </motion.p>
                   <motion.p variants={fadeIn} custom={3}>
                     <FaPhone className={styles.contactIcon} />
@@ -198,7 +199,6 @@ function Footer() {
             </Col>
           </Row>
 
-          {/* Línea divisoria */}
           <motion.hr
             className={styles.divider}
             initial={{ scaleX: 0 }}
@@ -207,14 +207,9 @@ function Footer() {
             viewport={{ once: true }}
           />
 
-          {/* Derechos reservados */}
           <Row>
             <Col className="text-center">
-              <motion.div
-                className={styles.copyright}
-                variants={fadeIn}
-                custom={4}
-              >
+              <motion.div variants={fadeIn} custom={4}>
                 <p>
                   &copy; {currentYear} <strong>Pixel Digital</strong>. Todos los
                   derechos reservados.

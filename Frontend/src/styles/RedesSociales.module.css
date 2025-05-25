@@ -1,0 +1,117 @@
+.redes-sociales-page {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  
+  }
+  
+  .platform-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    border-radius: 12px !important;
+}
+
+.platform-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.platform-icon-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .platform-image {
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.platform-card:hover .platform-image {
+    transform: scale(1.05);
+
+  }
+  
+  .video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  
+  .video-container video {
+    transition: transform 0.5s ease;
+  }
+  
+  .video-container:hover video {
+    transform: scale(1.02);
+  }
+  
+  .process-list {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .process-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 30px;
+    font-size: 1.1rem;
+  }
+  
+  .process-list li:before {
+    content: "✓";
+    color: #6E45E2;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+  
+  .service-card {
+    background: white;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .service-icon {
+    color: #6E45E2;
+    background: rgba(110, 69, 226, 0.1);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, #6E45E2 0%, #89D4CF 100%);
+    color: white;
+    margin-top: 40px;
+  }
+  
+  .btn-primary {
+    background-color: #6E45E2;
+    border: none;
+    font-weight: 600;
+  }
+  
+  .btn-primary:hover {
+    background-color: #5a35cc;
+  }
+  
+  @media (max-width: 768px) {
+    .platform-image {
+      height: 150px;
+    }
+  }

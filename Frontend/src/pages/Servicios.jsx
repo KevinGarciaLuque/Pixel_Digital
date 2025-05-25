@@ -1,7 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Baner1 from "../assets/images/baner1.png";
-// Importa las demás imágenes necesarias
 import Fotografia from "../assets/images/fotografia.png";
 import Diseno from "../assets/images/diseno.png";
 import Marketing from "../assets/images/marketing.png";
@@ -14,32 +14,42 @@ const rotateVariants = {
 };
 
 function Servicios() {
+  const navigate = useNavigate();
+
   const servicios = [
     {
       titulo: "Manejo de redes",
       descripcion: "Publicaciones semanales, estrategia de contenido.",
       color: "#E1306C",
       imagen: Baner1,
+      route: "/redes-sociales" // Route for social media management
     },
     {
       titulo: "Sesiones fotográficas",
       descripcion: "Fotos profesionales para productos y servicios.",
       color: "#FFA500",
       imagen: Fotografia,
+      route: "/fotografia" // Route for photography
     },
     {
       titulo: "Diseño gráfico",
       descripcion: "Posters, logos, anuncios, branding.",
       color: "#6E45E2",
       imagen: Diseno,
+      route: "/diseno-grafico" // Route for graphic design
     },
     {
       titulo: "Marketing Digital",
       descripcion: "Estrategias para aumentar tu presencia online",
       color: "#1DA1F2",
       imagen: Marketing,
+      route: "/marketing-digital" // Route for digital marketing
     },
   ];
+
+  const handleCardClick = (route) => {
+    navigate(route);
+  };
 
   return (
     <section className="py-5 pixel-services">
@@ -82,7 +92,9 @@ function Servicios() {
                 whileHover={{
                   y: -10,
                   boxShadow: `0 15px 30px -5px ${servicio.color}40`,
+                  cursor: "pointer"
                 }}
+                whileTap={{ scale: 0.98 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{
                   duration: 0.5,
@@ -91,6 +103,7 @@ function Servicios() {
                   stiffness: 200,
                 }}
                 className="card h-100 border-0 pixel-service-card"
+                onClick={() => handleCardClick(servicio.route)}
               >
                 <div className="card-body text-center p-4">
                   <motion.div
