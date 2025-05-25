@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import { useState, useEffect } from "react";
 import "../styles/Menu.css";
-import Logo from "../assets/images/logo.png"; // ✅ Importa el logo
+import Logo from "../assets/images/Logo.png"; // ✅ Importa el logo
 
 function Menu() {
   const [expanded, setExpanded] = useState(false);
